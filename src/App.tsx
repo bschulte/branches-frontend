@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { NetworkService } from "./services/network.service";
+import { networkService } from "./services/network.service";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Register } from "./views/Register";
+import { IUser } from "./interfaces/IUser";
 
 function App() {
-  const [value, setValue] = useState("");
+  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const network = new NetworkService();
 
   useEffect(() => {
     const getData = async () => {
-      const result = await network.jsonGet("/users/verify-auth");
+      const result = await networkService.get<IUser>("/users/verify-auth");
 
-      setValue(result);
+      setUser(result);
 
       setLoading(false);
     };
@@ -22,6 +22,10 @@ function App() {
 
   if (loading) {
     return <span>Loading...</span>;
+  }
+
+  if (!user) {
+    return <Register />;
   }
 
   return (
