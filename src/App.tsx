@@ -10,9 +10,13 @@ function App() {
 
   useEffect(() => {
     const getData = async () => {
-      const result = await networkService.get<IUser>("/users/verify-auth");
+      try {
+        const result = await networkService.get<IUser>("/users/verify-auth");
 
-      setUser(result);
+        setUser(result);
+      } catch (err) {
+        console.log("Error validating auth:", err);
+      }
 
       setLoading(false);
     };

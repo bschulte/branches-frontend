@@ -3,11 +3,24 @@ import { Header } from "../components/Header";
 import { Input } from "../components/shared/Input";
 import { Button } from "../components/shared/Button";
 import { Divider } from "../components/shared/Divider";
+import { networkService } from "../services/network.service";
 
 export const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
+
+  const registerNewUser = async () => {
+    try {
+      const response = await networkService.post("/users/register", {
+        name,
+        email
+      });
+      console.log("Response:", response);
+    } catch (err) {
+      console.log("Error with user registration:", err);
+    }
+  };
 
   return (
     <div className="w-2/4 mx-auto mt-16">
@@ -29,7 +42,7 @@ export const Register = () => {
         placeholder="Email"
       />
 
-      <Button>Register</Button>
+      <Button onClick={registerNewUser}>Register</Button>
 
       <Divider />
 

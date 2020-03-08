@@ -1,7 +1,10 @@
-import React, { HTMLProps } from "react";
+import React, { HTMLAttributes } from "react";
 import classnames from "classnames";
 
-export const Button = ({ children }: HTMLProps<HTMLButtonElement>) => {
+export const Button = ({
+  children,
+  ...props
+}: HTMLAttributes<HTMLButtonElement>) => {
   return (
     <button
       className={classnames(
@@ -14,6 +17,7 @@ export const Button = ({ children }: HTMLProps<HTMLButtonElement>) => {
         "border-blue-700",
         "rounded"
       )}
+      {...props}
     >
       {children}
     </button>

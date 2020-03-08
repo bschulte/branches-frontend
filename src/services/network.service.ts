@@ -2,23 +2,25 @@ class NetworkService {
   public async get<T>(url: string): Promise<T> {
     const response = await fetch(url, { headers: this.getHeaders() });
 
-    if (!response.ok) {
-      console.log("Error with GET request: ", response);
-      throw new Error(response.statusText);
-    }
+    this.handleError(response);
 
     return response.json();
   }
 
   public async post<T>(url: string, body: any): Promise<T> {
     const response = await fetch(
-      new Request(url, { method: "POST", body, headers: this.getHeaders() })
+      new Request(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          ...this.getHeaders()
+        }
+      })
     );
 
-    if (!response.ok) {
-      console.log("Error with POST request: ", response);
-      throw new Error(response.statusText);
-    }
+    this.handleError(response);
 
     return response.json();
   }
@@ -32,6 +34,13 @@ class NetworkService {
     }
 
     return headers;
+  }
+
+  private handleError(response: Response) {
+    if (!response.ok) {
+      console.log("Error with HTTP request: ", response);
+      throw new Error(response.statusText);
+    }
   }
 }
 
