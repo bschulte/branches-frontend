@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Header } from "../components/Header";
+import { Header } from "../components/shared/Header";
 import { Input } from "../components/shared/Input";
 import { Button } from "../components/shared/Button";
 import { Divider } from "../components/shared/Divider";
@@ -20,8 +20,28 @@ export const Register = () => {
         email
       });
       console.log("Response:", response);
+
+      info(
+        `Account was requested. You'll receive an email once the account has been approved`
+      );
     } catch (err) {
       console.log("Error with user registration:", err);
+    }
+  };
+
+  const login = async () => {
+    try {
+      const response = await networkService.post<{ token: string }>(
+        "/users/login-with-code",
+        {
+          accessCode: code
+        }
+      );
+
+      localStorage.setItem("token", response.token);
+      window.location.reload();
+    } catch (err) {
+      console.log("Error logging in:", err);
     }
   };
 
@@ -46,7 +66,6 @@ export const Register = () => {
       />
 
       <Button onClick={registerNewUser}>Register</Button>
-      <Button onClick={() => info("Testing")}>Test</Button>
 
       <Divider />
 
@@ -57,7 +76,7 @@ export const Register = () => {
         onChange={e => setCode(e.currentTarget.value)}
         placeholder="Access Code"
       />
-      <Button>Login</Button>
+      <Button onClick={login}>Login</Button>
     </div>
   );
 };
