@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { networkService } from "./services/network.service";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { ToastProvider } from "react-toast-notifications";
+
 import { Register } from "./views/Register";
 import { IUser } from "./interfaces/IUser";
+import { Toast } from "./components/shared/Toast";
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -29,20 +32,26 @@ function App() {
   }
 
   if (!user) {
-    return <Register />;
+    return (
+      <ToastProvider components={{ Toast }}>
+        <Register />
+      </ToastProvider>
+    );
   }
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/register">
-          <div>Testing</div>
-        </Route>
-        <Route path="/">
-          <div>Testing</div>
-        </Route>
-      </Switch>
-    </Router>
+    <ToastProvider>
+      <Router>
+        <Switch>
+          <Route path="/register">
+            <div>Testing</div>
+          </Route>
+          <Route path="/">
+            <div>Testing</div>
+          </Route>
+        </Switch>
+      </Router>
+    </ToastProvider>
   );
 }
 

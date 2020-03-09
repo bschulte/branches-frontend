@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+
 import { Header } from "../components/Header";
 import { Input } from "../components/shared/Input";
 import { Button } from "../components/shared/Button";
 import { Divider } from "../components/shared/Divider";
 import { networkService } from "../services/network.service";
+import { useToast } from "../hooks/toast.hook";
 
 export const Register = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [code, setCode] = useState("");
+  const { info } = useToast();
 
   const registerNewUser = async () => {
     try {
@@ -43,6 +46,7 @@ export const Register = () => {
       />
 
       <Button onClick={registerNewUser}>Register</Button>
+      <Button onClick={() => info("Testing")}>Test</Button>
 
       <Divider />
 
