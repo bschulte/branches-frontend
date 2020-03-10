@@ -6,6 +6,7 @@ import { ToastProvider } from "react-toast-notifications";
 import { Register } from "./views/Register";
 import { IUser } from "./interfaces/IUser";
 import { Toast } from "./components/shared/Toast";
+import { Navbar } from "./components/Navbar";
 
 function App() {
   const [user, setUser] = useState<IUser | null>(null);
@@ -42,10 +43,8 @@ function App() {
   return (
     <ToastProvider>
       <Router>
+        <Navbar />
         <Switch>
-          <Route path="/register">
-            <div>Testing</div>
-          </Route>
           <Route path="/">
             <div>Testing</div>
           </Route>
