@@ -7,6 +7,7 @@ import { DataRow } from "./DataRow";
 export interface IColumn {
   label: string;
   accessor?: string;
+  format?: (val: any) => string | number;
 }
 
 export interface IDataTableProps {

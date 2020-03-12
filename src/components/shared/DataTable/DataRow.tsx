@@ -10,9 +10,11 @@ export const DataRow = ({ columns, row }: { columns: IColumn[]; row: any }) => {
     <tr>
       {columns.map(col => {
         if (col.accessor) {
+          const val = _.get(row, col.accessor);
+
           return (
             <td key={col.label} className={baseClasses}>
-              {_.get(row, col.accessor)}
+              {col.format ? col.format(val) : val}
             </td>
           );
         } else {
