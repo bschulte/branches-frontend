@@ -5,6 +5,7 @@ import moment from "moment";
 
 import { Card } from "../shared/Card";
 import { DataTable } from "../shared/DataTable/DataTable";
+import { IUser } from "../../interfaces/IUser";
 
 const GET_USERS = gql`
   {
@@ -27,14 +28,17 @@ export const Users = () => {
       <DataTable
         rowKey="id"
         columns={[
-          { label: "ID", accessor: "id" },
+          { label: "Name", accessor: "name" },
           { label: "Email", accessor: "email" },
           {
-            label: "Signup",
+            label: "Signup Date",
             accessor: "createdAt",
             format: createdAt => moment(createdAt).format("L - LTS")
           },
-          { label: "Actions", accessor: "name" }
+          {
+            label: "Actions",
+            component: (_: any, row: IUser) => <span>{row.id}</span>
+          }
         ]}
         data={users}
       />

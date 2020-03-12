@@ -8,6 +8,7 @@ export interface IColumn {
   label: string;
   accessor?: string;
   format?: (val: any) => string | number;
+  component?: (val: any, row: any) => React.ReactNode;
 }
 
 export interface IDataTableProps {
