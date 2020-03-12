@@ -15,6 +15,8 @@ import { Toast } from "./components/shared/Toast";
 import { Navbar } from "./components/Navbar";
 import { setUser } from "./redux/slices/auth.slice";
 import { IRootState } from "./redux/IRootState";
+import { Dashboard } from "./views/Dashboard";
+import { Admin } from "./views/Admin";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -54,12 +56,14 @@ function App() {
     <ToastProvider>
       <Router>
         <Navbar />
+
         <Switch>
           <Route path="/dashboard">
-            <div>Testing</div>
+            <Dashboard />
           </Route>
+
           <Route path="/admin">
-            <div>Admin</div>
+            <Admin />
           </Route>
           <Redirect from="/" to="/dashboard" />
         </Switch>
