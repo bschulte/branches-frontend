@@ -1,23 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { networkService } from "./services/network.service";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect
+} from "react-router-dom";
 import { ToastProvider } from "react-toast-notifications";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Register } from "./views/Register";
 import { IUser } from "./interfaces/IUser";
 import { Toast } from "./components/shared/Toast";
 import { Navbar } from "./components/Navbar";
+import { setUser } from "./redux/slices/auth.slice";
+import { IRootState } from "./redux/IRootState";
 
 function App() {
-  const [user, setUser] = useState<IUser | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { user } = useSelector((state: IRootState) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getData = async () => {
       try {
         const result = await networkService.get<IUser>("/users/verify-auth");
 
-        setUser(result);
+        dispatch(setUser(result));
       } catch (err) {
         console.log("Error validating auth:", err);
       }
@@ -26,7 +36,7 @@ function App() {
     };
 
     getData();
-  });
+  }, [dispatch]);
 
   if (loading) {
     return <span>Loading...</span>;
@@ -45,9 +55,13 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route path="/">
+          <Route path="/dashboard">
             <div>Testing</div>
           </Route>
+          <Route path="/admin">
+            <div>Admin</div>
+          </Route>
+          <Redirect from="/" to="/dashboard" />
         </Switch>
       </Router>
     </ToastProvider>
