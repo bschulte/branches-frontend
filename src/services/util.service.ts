@@ -1,10 +1,10 @@
+import { Color } from "../types";
+
 /**
  * Get the TailwindCSS color for the given color to the component
  *
  * @param color Color string for the component
  */
-export type Color = "primary" | "default" | "success" | "warning" | "error";
-
 export const getColor = (color: Color) => {
   if (color === "default") {
     return "gray";
@@ -21,3 +21,5 @@ export const getColor = (color: Color) => {
 
   return "gray";
 };
+
+export type Size = "sm" | "md" | "lg";

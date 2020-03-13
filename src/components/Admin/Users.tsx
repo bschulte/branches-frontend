@@ -55,18 +55,22 @@ export const Users = () => {
             format: createdAt => moment(createdAt).format("L - LTS")
           },
           {
-            label: "Actions",
-            component: (_: any, row: IUser) => <span>{row.id}</span>
-          },
-          {
             label: "Approved",
             component: (approved, user) =>
               approved ? (
-                <Button color="success" onClick={() => toggleApproved(user)}>
+                <Button
+                  color="success"
+                  onClick={() => toggleApproved(user)}
+                  size="sm"
+                >
                   YES
                 </Button>
               ) : (
-                <Button color="error" onClick={() => toggleApproved(user)}>
+                <Button
+                  color="error"
+                  onClick={() => toggleApproved(user)}
+                  size="sm"
+                >
                   NO
                 </Button>
               ),

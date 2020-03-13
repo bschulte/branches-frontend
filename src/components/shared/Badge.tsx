@@ -1,5 +1,6 @@
 import React, { HTMLProps } from "react";
-import { getColor, Color } from "../../services/util.service";
+import { getColor } from "../../services/util.service";
+import { Color } from "../../types";
 
 interface IBadgeProps {
   color?: Color;
