@@ -1,6 +1,10 @@
 import React, { HTMLAttributes } from "react";
 import classnames from "classnames";
 
+interface IButtonProps {
+  color: "primary" | "success" | "warning" | "error";
+}
+
 export const Button = ({
   children,
   ...props

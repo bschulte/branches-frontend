@@ -12,7 +12,11 @@ export const DataRow = ({ columns, row }: { columns: IColumn[]; row: any }) => {
         const val = col.accessor ? _.get(row, col.accessor) : null;
 
         if (col.component) {
-          return <td className={baseClasses}>{col.component(val, row)}</td>;
+          return (
+            <td key={col.label} className={baseClasses}>
+              {col.component(val, row)}
+            </td>
+          );
         }
 
         if (col.accessor) {
