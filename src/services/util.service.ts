@@ -1,4 +1,5 @@
 import { Color } from "../types";
+import { primaryColor } from "../config";
 
 /**
  * Get the TailwindCSS color for the given color to the component
@@ -17,6 +18,9 @@ export const getColor = (color: Color) => {
   }
   if (color === "error") {
     return "red";
+  }
+  if (color === "primary") {
+    return primaryColor;
   }
 
   return "gray";

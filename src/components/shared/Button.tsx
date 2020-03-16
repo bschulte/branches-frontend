@@ -12,6 +12,7 @@ export const Button = ({
   children,
   color = "primary",
   size = "md",
+  className,
   ...props
 }: HTMLAttributes<HTMLButtonElement> & IButtonProps) => {
   const tailwindColor = getColor(color);
@@ -36,7 +37,8 @@ export const Button = ({
         "text-white",
         "border",
         `border-${tailwindColor}-700`,
-        "rounded"
+        "rounded",
+        className
       )}
       {...props}
     >
