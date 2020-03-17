@@ -25,12 +25,36 @@ class NetworkService {
     return response.json();
   }
 
-  private getHeaders(): Headers {
-    const headers = new Headers();
+  public async postFile<T>(
+    url: string,
+    file: File,
+    body: any = {}
+  ): Promise<T> {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const response = await fetch(
+      new Request(url, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+          ...this.getHeaders()
+        }
+      })
+    );
+
+    this.handleError(response);
+
+    return response.json();
+  }
+
+  private getHeaders(): any {
     const token = localStorage.getItem("token");
+    const headers: any = {};
 
     if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
+      headers.Authorization = `Bearer ${token}`;
     }
 
     return headers;

@@ -3,7 +3,6 @@ import { v4 as uuid } from "uuid";
 import classnames from "classnames";
 
 import { primaryColor } from "../../config";
-import { Button } from "./Button";
 
 interface IFileInputProps {
   onSend: (file: File) => void;
